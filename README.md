@@ -1,209 +1,310 @@
-# AEGIS-X
+<!-- ===================================================== -->
+<!-- 🔥 AEGIS-X - AI Enhanced SOC Platform -->
+<!-- ===================================================== -->
 
-AI-Enhanced Global Intelligence & Security Platform - eXtended.
+<div align="center">
 
-AEGIS-X is a full-stack SOC platform with enterprise-oriented backend controls, async analysis workers, RBAC, auditability, and AI-powered security analysis via AIRllm-compatible inference APIs.
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,100:203a43&height=200&section=header&text=AEGIS-X&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=35"/>
 
-## Monorepo Layout
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=1000&color=00F7FF&center=true&vCenter=true&width=700&lines=AI-Enhanced+SOC+Platform;Malware+Analysis+%7C+Threat+Classification;Asynchronous+Security+Processing;Built+With+Node.js+%2B+TypeScript+%2B+PostgreSQL;Blue+Team+Engineering+Simulation"/>
+</p>
 
-- `server/` Express + TypeScript backend
-- `client/` React + TypeScript + Vite frontend
-- `docker-compose.yml` platform stack
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-## Architecture
+</div>
 
-### Backend
+---
 
-- Node.js + Express + TypeScript
-- PostgreSQL for security data and audit records
-- Redis + BullMQ for asynchronous workloads
-- Socket.io for real-time alert and incident events
-- Zod request contracts + centralized error handling
-- JSON structured logging with Winston and request ID tracing
+# 🌌 Overview
 
-### Key Backend Modules
+**AEGIS-X** is an AI-augmented Security Operations Center (SOC) platform built to simulate real-world blue team workflows.
 
-- Authentication: register/login/refresh with access token + rotating refresh token
-- SOC Operations: log ingestion, alert scoring, incident lifecycle, incident timeline
-- Malware Analysis: secure upload, static triage (hashes, entropy, strings, YARA simulation), AI interpretation
-- Threat Intelligence: IOC extraction, risk scoring, correlation
-- Pentest Utilities: JWT analyzer, header checker, simulated port scanner and vulnerability classifier
-- Admin: user management and audit log review
+It integrates:
 
-### AI Safety Design
+- 🔍 Malware sample analysis  
+- 🌐 Threat intelligence classification  
+- ⚙ Asynchronous job processing  
+- 🤖 AI-driven reporting  
+- 🔐 Role-Based Access Control (RBAC)  
+- 📊 Risk scoring & executive summaries  
 
-- Prompt templates per task (incident summary, threat classification, malware explanation, remediation, executive report)
-- Prompt injection filtering (`sanitizeForPrompt`)
-- Context bounding and token-length controls
-- Structured JSON-first parsing with fallback handling
-- No direct concatenation of untrusted text into unrestricted prompts
+AEGIS-X mirrors the backend architecture of modern SIEM/SOAR-driven SOC environments.
 
-## Security Design
+---
 
-- JWT authentication middleware (`authenticate`)
-- RBAC authorization middleware (`authorize`)
-- Route-group rate limiting (general/auth/upload)
-- Strong input validation with Zod
-- Audit logging for sensitive actions
-- Secure file upload controls: MIME allowlist, size limits, isolated upload directory
-- Graceful shutdown with resource cleanup (HTTP, DB, Redis, queue)
+# 🎯 Mission
 
-## Database
+> Build a modular, scalable, security-focused backend system that replicates how modern SOC teams ingest, process, analyze, and prioritize threats.
 
-SQL schema is in:
+AEGIS-X demonstrates:
 
-- `server/db/migrations/001_init.sql`
+- Defensive security engineering
+- Blue-team operational workflow
+- AI-assisted threat triage
+- Production-grade backend design
+- Asynchronous distributed processing
 
-Included tables:
+---
 
-- `users`
-- `roles`
-- `incidents`
-- `alerts`
-- `logs`
-- `malware_reports`
-- `threat_intel`
-- `audit_logs`
-- `refresh_tokens`
+# 🧠 Core Capabilities
 
-Additional operational tables:
+---
 
-- `incident_events` (timeline)
-- `analysis_jobs` (worker status tracking)
+## 🔬 Malware Analysis Engine
 
-## Local Setup
+✔ Secure file ingestion  
+✔ MIME validation & size control  
+✔ Entropy analysis  
+✔ String extraction  
+✔ Suspicious keyword detection  
+✔ Simulated YARA rule matching  
+✔ MD5 & SHA256 hashing  
+✔ AI behavior explanation  
+✔ Executive-level summary generation  
+✔ Risk score calculation  
 
-### 1. Configure environment files
+---
 
-- Copy `server/.env.example` to `server/.env`
-- Copy `client/.env.example` to `client/.env`
+## 🌐 Threat Classification Engine
 
-### 2. Start dependencies
+✔ Log ingestion  
+✔ Indicator extraction  
+✔ AI classification  
+✔ Risk enrichment  
+✔ Metadata tagging  
+✔ SOC-style contextualization  
 
-```bash
-docker compose up -d postgres redis
+---
+
+## ⚙ Asynchronous Processing (Redis + BullMQ)
+
+AEGIS-X uses a distributed worker architecture:
+
+```
+Client → API → Redis Queue → Worker → AI → PostgreSQL
 ```
 
-### 3. Install backend dependencies and run migration
+Supports:
+
+- Retry with exponential backoff
+- Failure handling
+- Status tracking
+- Real-time updates
+- Concurrent job execution
+
+---
+
+## 🔐 Role-Based Access Control (RBAC)
+
+Roles:
+
+- ADMIN
+- SOC_ANALYST
+- MALWARE_ANALYST
+- PENTESTER
+- VIEWER
+
+Implements:
+
+- JWT authentication
+- Route authorization middleware
+- Token expiration handling
+- Secure password hashing
+
+---
+
+# 🏗️ Architecture
+
+```mermaid
+flowchart TD
+    A[User] --> B[React Frontend]
+    B --> C[Node.js API]
+    C --> D[(PostgreSQL)]
+    C --> E[(Redis)]
+    E --> F[Worker Service]
+    F --> G[Malware Engine]
+    F --> H[Threat Engine]
+    G --> I[AI Analysis]
+    H --> I
+    I --> D
+```
+
+---
+
+# 🗃️ Database Design
+
+Key tables:
+
+- users
+- roles
+- malware_reports
+- analysis_jobs
+- logs
+- incident_events
+
+Uses:
+
+- JSONB storage
+- Upsert conflict handling
+- Job state persistence
+- Risk metadata tracking
+
+---
+
+# 🤖 AI Integration Layer
+
+AI assists in:
+
+- Behavioral explanation
+- Executive summaries
+- Threat categorization
+- Risk contextualization
+- Incident summarization
+
+All AI outputs are stored in structured JSON for:
+
+- Dashboard rendering
+- Audit trail
+- Future enrichment
+
+---
+
+# 📊 Risk Scoring Model
+
+Risk Score considers:
+
+- Entropy threshold
+- YARA matches
+- Suspicious keywords
+- Indicator density
+- Behavioral patterns
+
+Severity classification:
+
+| Level | Meaning |
+|--------|----------|
+| 🔴 Critical | Immediate threat |
+| 🟠 High | Exploitable vector |
+| 🟡 Medium | Suspicious |
+| 🟢 Low | Informational |
+
+---
+
+# 🛠️ Tech Stack
+
+| Layer | Tech |
+|--------|------|
+| Backend | Node.js + Express |
+| Language | TypeScript |
+| DB | PostgreSQL 16 |
+| Queue | Redis 7 |
+| Worker | BullMQ |
+| Frontend | React |
+| Auth | JWT |
+| Containerization | Docker |
+
+---
+
+# 🚀 Getting Started
+
+## 🐳 Run via Docker
+
+```bash
+docker-compose build --no-cache
+docker-compose up
+```
+
+Access:
+
+```
+http://localhost:5000
+```
+
+---
+
+## 🧪 Local Development
 
 ```bash
 cd server
 npm install
-npm run migrate:dev
-```
-
-### 4. Start backend API and worker
-
-```bash
-npm run dev
-npm run dev:worker
-```
-
-### 5. Install frontend dependencies and start client
-
-```bash
-cd ../client
-npm install
+npm run build
 npm run dev
 ```
 
-Frontend: `http://localhost:5173`
+---
 
-Backend: `http://localhost:5000/api/v1`
+# 🔒 Security Design Highlights
 
-## Full Docker Stack
+- File upload validation
+- Rate limiting
+- JWT expiration enforcement
+- Controlled worker execution
+- Structured error handling
+- RBAC route protection
+- Asynchronous isolation
+- Secure environment variable management
 
-```bash
-docker compose up --build
-```
+---
 
-## API Examples (curl)
+# 🎓 Educational Value
 
-### Register
+AEGIS-X teaches:
 
-```bash
-curl -X POST http://localhost:5000/api/v1/auth/register   -H "Content-Type: application/json"   -d '{
-    "email":"soc@example.com",
-    "username":"soc_analyst",
-    "password":"StrongPassword!123"
-  }'
-```
+- SOC operational flow
+- Malware triage lifecycle
+- Worker-based system architecture
+- Risk-based prioritization
+- Secure backend engineering
+- Database conflict resolution
+- Queue-based scalability
 
-### Login
+---
 
-```bash
-curl -X POST http://localhost:5000/api/v1/auth/login   -H "Content-Type: application/json"   -d '{
-    "email":"soc@example.com",
-    "password":"StrongPassword!123"
-  }'
-```
+# 🧠 Engineering Concepts Demonstrated
 
-### Ingest SOC Log
+- Multi-stage Docker builds
+- Production TypeScript configuration
+- Redis job orchestration
+- AI enrichment pipelines
+- Secure service modularization
+- Event-driven architecture
+- Clean separation of concerns
 
-```bash
-curl -X POST http://localhost:5000/api/v1/soc/logs/ingest   -H "Content-Type: application/json"   -H "Authorization: Bearer <ACCESS_TOKEN>"   -d '{
-    "source":"endpoint-edr",
-    "logType":"process_creation",
-    "severity":"MEDIUM",
-    "message":"powershell execution with encoded command",
-    "rawData":{"host":"srv-001"}
-  }'
-```
+---
 
-### Upload Malware Sample
+# 📈 Resume-Optimized Description
 
-```bash
-curl -X POST http://localhost:5000/api/v1/malware/upload   -H "Authorization: Bearer <ACCESS_TOKEN>"   -F "file=@/path/to/sample.bin"
-```
+> Designed and implemented an AI-assisted SOC platform featuring asynchronous malware analysis, Redis-based job orchestration, PostgreSQL-backed reporting, and role-based access control to simulate real-world blue team operations.
 
-### Query Threat Intel IOC
+---
 
-```bash
-curl -X POST http://localhost:5000/api/v1/threat-intel/query   -H "Content-Type: application/json"   -H "Authorization: Bearer <ACCESS_TOKEN>"   -d '{"iocType":"ip","iocValue":"45.9.148.21"}'
-```
+# ⚠ Disclaimer
 
-## Example Workflow
+AEGIS-X is built for:
 
-1. Analyst uploads sample in Malware module.
-2. Backend enqueues `malware_analysis` job in Redis/BullMQ.
-3. Worker computes hashes, entropy, strings, suspicious indicators, YARA simulation.
-4. Worker sends bounded, sanitized context to AI service for behavior + remediation + executive summary.
-5. SOC analyst ingests related logs, generating alerts/incidents.
-6. Incident timeline includes generated events and can be reviewed in dashboard.
-7. Admin reviews audit logs and updates role assignments as needed.
+- Educational use
+- Security engineering learning
+- Blue team workflow simulation
 
-## Testing
+It is not a production SIEM or malware sandbox.
 
-### Backend
+---
 
-```bash
-cd server
-npm test
-```
+# 👨‍💻 Author
 
-Coverage includes:
+**Anandhan**  
+Security Engineering & Web3 Security Research Enthusiast  
+India 🇮🇳  
 
-- Auth service unit tests
-- Auth route integration tests
-- RBAC middleware integration test
-- Worker service queue tests (mocked queue/Redis path)
-- AI service tests (mocked HTTP client)
+---
 
-### Frontend
+<div align="center">
 
-```bash
-cd client
-npm test
-```
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:203a43,100:0f2027&height=150&section=footer"/>
 
-Coverage includes:
-
-- Component render test
-- Protected route authorization behavior
-
-## Operational Notes
-
-- AIRllm endpoint is configurable via `AI_SERVICE_URL`.
-- For production, replace development secrets and enforce secure secret management.
-- Access and refresh tokens are intentionally handled in API responses for development flow.
-  For stricter deployments, switch refresh token storage to secure HttpOnly cookies.
+</div>
