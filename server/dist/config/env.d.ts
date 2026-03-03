@@ -1,0 +1,35 @@
+export declare const env: {
+    NODE_ENV: string;
+    PORT: number;
+    API_VERSION: string;
+    DB_HOST: string;
+    DB_PORT: number;
+    DB_NAME: string;
+    DB_USER: string;
+    DB_PASSWORD: string;
+    REDIS_HOST: string;
+    REDIS_PORT: number;
+    REDIS_PASSWORD: string;
+    JWT_ACCESS_SECRET: string;
+    JWT_REFRESH_SECRET: string;
+    JWT_ACCESS_EXPIRES: string;
+    JWT_REFRESH_EXPIRES: string;
+    UPLOAD_DIR: string;
+    MAX_FILE_SIZE: number;
+    AI_SERVICE_URL: string;
+    AI_MODEL: string;
+    AI_MAX_TOKENS: number;
+    AI_REQUEST_TIMEOUT_MS: number;
+    CORS_ORIGIN: string;
+    SOCKET_CORS_ORIGIN: string;
+    RATE_LIMIT_WINDOW_MS: number;
+    RATE_LIMIT_MAX_REQUESTS: number;
+    AUTH_RATE_LIMIT_MAX: number;
+    LOG_LEVEL: string;
+    LOG_DIR: string;
+    QUEUE_NAME: string;
+    QUEUE_PREFIX: string;
+};
+export declare const isProduction: boolean;
+export declare function assertSecureRuntime(): void;
+//# sourceMappingURL=env.d.ts.map

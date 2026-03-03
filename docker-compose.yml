@@ -1,0 +1,77 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: aegisx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-aegisx}
+      POSTGRES_USER: ${DB_USER:-aegisx_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change_me}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-aegisx_user} -d ${DB_NAME:-aegisx}']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: aegisx-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: aegisx-app
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - '5000:5000'
+
+  worker:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: aegisx-worker
+    restart: unless-stopped
+    command: ['node', 'dist/src/workers/analysisWorker.js']
+    env_file:
+      - ./server/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: aegisx-client
+    restart: unless-stopped
+    env_file:
+      - ./client/.env
+    depends_on:
+      - app
+    ports:
+      - '5173:5173'
+
+volumes:
+  postgres_data:
