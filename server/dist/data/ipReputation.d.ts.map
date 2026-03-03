@@ -1,1 +1,0 @@
-{"version":3,"file":"ipReputation.d.ts","sourceRoot":"","sources":["../../src/data/ipReputation.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,iBAAiB;IAChC,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,QAAQ,GAAG,YAAY,GAAG,WAAW,CAAC;IAChD,QAAQ,EAAE,MAAM,CAAC;CAClB;AAED,eAAO,MAAM,qBAAqB,EAAE,MAAM,CAAC,MAAM,EAAE,iBAAiB,CAOnE,CAAC"}
