@@ -277,12 +277,6 @@ AEGIS-X teaches:
 
 ---
 
-# 📈 Resume-Optimized Description
-
-> Designed and implemented an AI-assisted SOC platform featuring asynchronous malware analysis, Redis-based job orchestration, PostgreSQL-backed reporting, and role-based access control to simulate real-world blue team operations.
-
----
-
 # ⚠ Disclaimer
 
 AEGIS-X is built for:
